@@ -34,6 +34,8 @@ def command_enable(cmd, bot, args, msg, event):
 def command_ban(cmd, bot, args, msg, event):
     global command_banned_users
     global banned_users
+    if len(args) == 0:
+        return "Not enough arguments"
     try:
         banned_user = int(args[0])
     except ValueError:
@@ -65,6 +67,8 @@ def command_ban(cmd, bot, args, msg, event):
 def command_unban(cmd, bot, args, msg, event):
     global banned_users
     global command_banned_users
+    if len(args) == 0:
+        return "Not enough arguments"
     try:
         banned_user = int(args[0])
     except ValueError:
