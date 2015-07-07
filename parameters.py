@@ -5,7 +5,8 @@ def replace_deco(func, bot):
         replace_dict = {
             "$PREFIX": bot.prefix,
             "$OWNER_NAME": bot.owner_name,
-            "$BOT_NAME": bot.chatbot_name
+            "$BOT_NAME": bot.chatbot_name,
+            "$GITHUB": bot.github
         }
         
         regex = re.compile("(%s)" % "|".join(map(re.escape, replace_dict.keys())))        
