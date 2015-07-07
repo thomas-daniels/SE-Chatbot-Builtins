@@ -150,3 +150,4 @@ def on_bot_load(bot):
     bot.on_event = ban_deco(bot.on_event, bot)
     command_banned_users = SaveIO.load(save_subdir, 'command_banned_users')
     banned_users = SaveIO.load(save_subdir, 'banned_users')
+module_name = "admin"

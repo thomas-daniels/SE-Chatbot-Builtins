@@ -18,3 +18,4 @@ commands = [
     Command('xkcdrandomnumber', command_xkcdrandomnumber, "Returns a random number, based on an xkcd comic. Syntax: `$PREFIXxkcdrandomnumber`", False, False),
     Command('xkcd', command_xkcd, "Shows the specified xkcd comic. Syntax: `$PREFIXxkcd comic_id`", False, False)
 ]
+module_name = "xkcd"

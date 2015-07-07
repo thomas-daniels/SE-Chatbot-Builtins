@@ -39,3 +39,4 @@ def on_bot_load(bot):
     bot.command = command_with_didyoumean
 
 commands = []
+module_name = "didyoumean"

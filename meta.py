@@ -7,3 +7,4 @@ modules = [
     'didyoumean',
     'parameters'
 ]
+module_name = "builtins"

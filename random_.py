@@ -50,3 +50,4 @@ commands = [
     Command('randomchoice', command_randomchoice, "Randomly chooses an item from a given list. Syntax: `$PREFIXrandomchoice listitem1 listitem2 listitem3 ...`", False, False),
     Command('shuffle', command_shuffle, "Shuffles a list of given items. Syntax: `$PREFIXshuffle listitem1 listitem2 listitem3 ...`", False, False)
 ]
+module_name = "random"

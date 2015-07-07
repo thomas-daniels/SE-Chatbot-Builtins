@@ -17,3 +17,4 @@ def on_bot_load(bot):
     bot.command = replace_deco(bot.command, bot)
 
 commands = [ ]
+module_name = "parameters"
