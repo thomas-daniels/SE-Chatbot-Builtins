@@ -11,7 +11,16 @@ def command_utc(cmd, bot, args, msg, event):
 
 
 def command_listcommands(cmd, bot, args, msg, event):
-    return "Commands: %s" % (', '.join([command.name for command in bot.modules.list_commands()]))
+    if len(args) == 0:
+        return "Commands: %s" % (', '.join([command.name for command in bot.modules.list_commands()]))
+    elif len(args) == 1:
+        module = bot.modules.find_module_by_name(args[0])
+        cmds = module.list_commands()
+        if len(cmds) == 0:
+            return "No commands found in `%s`." % args[0]
+        return "Commands in `%s`: %s" % (args[0], ', '.join([command.name for command in cmds]))
+    else:
+        return "0 or 1 argument(s) expected."
 
 
 def command_help(cmd, bot, args, msg, event):
