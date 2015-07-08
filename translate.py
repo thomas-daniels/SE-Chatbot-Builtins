@@ -10,6 +10,15 @@ translation_chain_going_on = False
 translation_switch_going_on = False
 
 
+def command_detectlang(cmd, bot, args, msg, event):
+    if "yandex_api_key" not in Config.General:
+        return "Warning: no Yandex API Key found in Config."
+    detected = detect_lang(args[0])
+    if detected[0] is False:
+        return "Error code: %i" % (detected[0],)
+    return r"\[Powered by [Yandex Translate](https://translate.yandex.com)\] Detected language: %s (%s)" % (detected[1], translation_languages[detected[1]])
+
+
 def command_translationchain(cmd, bot, args, msg, event):
     global translation_languages
     global translation_chain_going_on
@@ -123,6 +132,16 @@ def translationswitch(bot, text, lang1, lang2, translation_count):
     translation_switch_going_on = False
 
 
+def detect_lang(text):
+    yandex_api_key = Config.General["yandex_api_key"]
+    request_url = "https://translate.yandex.net/api/v1.5/tr.json/detect"
+    params = {"key": yandex_api_key, "text": text}
+    resp_json = requests.get(request_url, params).json()
+    if resp_json["code"] != 200:
+        return False, resp_json["code"]
+    return True, resp_json["lang"]
+
+
 def translate(text, start_lang, end_lang):
     yandex_api_key = Config.General["yandex_api_key"]
     request_url = "https://translate.yandex.net/api/v1.5/tr.json/translate"
@@ -153,6 +172,10 @@ def transcs_arg_parsing(full_cmd):
     return args
 
 
+def detectlang_arg_parsing(full_cmd):
+    return [full_cmd.split(" ", 1)[1]]
+
+
 def on_bot_load(bot):
     global translation_languages
     if "yandex_api_key" not in Config.General:
@@ -165,6 +188,7 @@ def on_bot_load(bot):
 
 
 commands = [
+    Command('detectlang', command_detectlang, "Detects the language of a piece of text using [Yandex Translate](https://translate.yandex.com/). Syntax: `$PREFIXdetectlang Input text here`", False, False, False, detectlang_arg_parsing),
     Command('translate', command_translate, "Translates text using [Yandex Translate](https://translate.yandex.com/). Syntax: `$PREFIXtranslate input_lang output_lang Text to translate.`. `input_lang` and `output_lang` are language codes such as `en`, `fr` and `auto`.", False, False, False, trans_arg_parsing),
     Command('translationchain', command_translationchain, "Owner-only command. Creates a chain of translations using [Yandex Translate](https://translate.yandex.com/). Syntax: `$PREFIXtranslationchain steps_number input_lang output_lang Text to translate.`", False, True, False, transcs_arg_parsing),
     Command('translationswitch', command_translationswitch, "Owner-only command. Creates a chain of translations using [Yandex Translate](https://translate.yandex.com/), consisting of two languages. Syntax: `$PREFIXtranslationswitch steps_number lang1 lang2 Text to translate.`", False, True, False, transcs_arg_parsing)
