@@ -5,6 +5,7 @@ modules = [
     'translate',
     'admin',
     'didyoumean',
-    'parameters'
+    'parameters',
+    'module_controls'
 ]
 module_name = "builtins"
