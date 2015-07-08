@@ -183,7 +183,7 @@ def on_bot_load(bot):
         print("Warning: no Yandex API Key found for the translation module. Put one in botdata/translate/yandex_api_key.txt")
         return
     with open("botdata/translate/yandex_api_key.txt") as f:
-        yandex_api_key = f.read()
+        yandex_api_key = f.read().strip()
     request_url = "https://translate.yandex.net/api/v1.5/tr.json/getLangs"
     params = {"key": yandex_api_key, "ui": "en"}
     resp_json = requests.get(request_url, params).json()
