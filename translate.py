@@ -18,6 +18,8 @@ def command_detectlang(cmd, bot, args, msg, event):
     detected = detect_lang(args[0])
     if detected[0] is False:
         return "Error code: %i" % (detected[0],)
+    if len(detected[1]) == 0:
+        return r"\[Powered by [Yandex Translate](https://translate.yandex.com)\] No language found."
     return r"\[Powered by [Yandex Translate](https://translate.yandex.com)\] Detected language: %s (%s)" % (detected[1], translation_languages[detected[1]])
 
 
