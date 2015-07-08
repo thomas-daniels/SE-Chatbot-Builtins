@@ -30,6 +30,6 @@ def command_help(cmd, bot, args, msg, event):
 
 commands = [Command('alive', command_alive, "A command to see whether the bot is there. Syntax: `$PREFIXalive`", False, False),
             Command('utc', command_utc, "Shows the current UTC time. Syntax: `$PREFIXutc`", False, False),
-            Command('listcommands', command_listcommands, "Returns a list of all commands. Syntax: `$PREFIXlistcommands`", False, False),
+            Command('listcommands', command_listcommands, "Returns a list of all commands. Syntax: `$PREFIXlistcommands`", False, False, False),
             Command('help', command_help, "Shows information about the chat bot, or about a specific command. Syntax: `$PREFIXhelp [ command ]`", False, False)]
 module_name = "utils"
