@@ -1,6 +1,7 @@
 import thread
 import requests
 import random
+import os
 from Module import Command
 from Config import Config
 
@@ -8,11 +9,12 @@ translation_languages = {}
 end_lang = None
 translation_chain_going_on = False
 translation_switch_going_on = False
+yandex_api_key = None
 
 
 def command_detectlang(cmd, bot, args, msg, event):
-    if "yandex_api_key" not in Config.General:
-        return "Warning: no Yandex API Key found in Config."
+    if yandex_api_key is None:
+        return "Warning: no Yandex API Key found. Put one in `botdata/translate/yandex_api_key.txt`."
     detected = detect_lang(args[0])
     if detected[0] is False:
         return "Error code: %i" % (detected[0],)
@@ -22,8 +24,8 @@ def command_detectlang(cmd, bot, args, msg, event):
 def command_translationchain(cmd, bot, args, msg, event):
     global translation_languages
     global translation_chain_going_on
-    if "yandex_api_key" not in Config.General:
-        return "Warning: no Yandex API Key found in Config."
+    if yandex_api_key is None:
+        return "Warning: no Yandex API Key found. Put one in `botdata/translate/yandex_api_key.txt`."
     if event.user.id not in bot.owner_ids:
         return "The `translationchain` command is a command that posts many messages and it does not post all messages, and causes that some messages that have to be posted after the chain might not be posted, so it is an owner-only command now."
     if len(args) < 4:
@@ -47,8 +49,8 @@ def command_translationchain(cmd, bot, args, msg, event):
 def command_translationswitch(cmd, bot, args, msg, event):
     global translation_switch_going_on
     global translation_languages
-    if "yandex_api_key" not in Config.General:
-        return "Warning: no Yandex API Key found in Config."
+    if yandex_api_key is None:
+        return "Warning: no Yandex API Key found. Put one in `botdata/translate/yandex_api_key.txt`."
     if event.user.id not in bot.owner_ids:
         return "The `translationswitch` command is a command that posts many messages and it does not post all messages, and causes that some messages that have to be posted after the chain might not be posted, so it is an owner-only command now."
     if translation_switch_going_on:
@@ -72,8 +74,8 @@ def command_translationswitch(cmd, bot, args, msg, event):
 
 def command_translate(cmd, bot, args, msg, event):
     global translation_languages
-    if "yandex_api_key" not in Config.General:
-        return "Warning: no Yandex API Key found in Config."
+    if yandex_api_key is None:
+        return "Warning: no Yandex API Key found. Put one in `botdata/translate/yandex_api_key.txt`."
     if len(args) < 3:
         return "Not enough arguments."
     if args[0] == args[1]:
@@ -133,7 +135,6 @@ def translationswitch(bot, text, lang1, lang2, translation_count):
 
 
 def detect_lang(text):
-    yandex_api_key = Config.General["yandex_api_key"]
     request_url = "https://translate.yandex.net/api/v1.5/tr.json/detect"
     params = {"key": yandex_api_key, "text": text}
     resp_json = requests.get(request_url, params).json()
@@ -143,7 +144,6 @@ def detect_lang(text):
 
 
 def translate(text, start_lang, end_lang):
-    yandex_api_key = Config.General["yandex_api_key"]
     request_url = "https://translate.yandex.net/api/v1.5/tr.json/translate"
     params = {"key": yandex_api_key, "lang": "%s-%s" % (start_lang, end_lang),
               "text": text}
@@ -178,11 +178,14 @@ def detectlang_arg_parsing(full_cmd):
 
 def on_bot_load(bot):
     global translation_languages
-    if "yandex_api_key" not in Config.General:
-        print("Warning: no Yandex API Key found in Config, for the translation module.")
+    global yandex_api_key
+    if not os.path.isfile("botdata/translate/yandex_api_key.txt"):
+        print("Warning: no Yandex API Key found for the translation module. Put one in botdata/translate/yandex_api_key.txt")
         return
+    with open("botdata/translate/yandex_api_key.txt") as f:
+        yandex_api_key = f.read()
     request_url = "https://translate.yandex.net/api/v1.5/tr.json/getLangs"
-    params = {"key": Config.General["yandex_api_key"], "ui": "en"}
+    params = {"key": yandex_api_key, "ui": "en"}
     resp_json = requests.get(request_url, params).json()
     translation_languages = resp_json["langs"]
 
@@ -194,3 +197,4 @@ commands = [
     Command('translationswitch', command_translationswitch, "Owner-only command. Creates a chain of translations using [Yandex Translate](https://translate.yandex.com/), consisting of two languages. Syntax: `$PREFIXtranslationswitch steps_number lang1 lang2 Text to translate.`", False, True, False, transcs_arg_parsing)
 ]
 module_name = "translate"
+save_subdir = "translate"
