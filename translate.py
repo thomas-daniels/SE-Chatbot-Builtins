@@ -13,6 +13,8 @@ yandex_api_key = None
 
 
 def command_detectlang(cmd, bot, args, msg, event):
+    if len(args) == 0:
+        return "Not enough arguments."
     if yandex_api_key is None:
         return "Warning: no Yandex API Key found. Put one in `botdata/translate/yandex_api_key.txt`."
     detected = detect_lang(args[0])
