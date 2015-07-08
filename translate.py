@@ -175,7 +175,10 @@ def transcs_arg_parsing(full_cmd):
 
 
 def detectlang_arg_parsing(full_cmd):
-    return [full_cmd.split(" ", 1)[1]]
+    parts = full_cmd.split(" ", 1)
+    if len(parts) < 2:
+        return []
+    return [parts[1]]
 
 
 def on_bot_load(bot):
