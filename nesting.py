@@ -2,17 +2,15 @@
 
 # Add necessary import to this file, including:
 # from Module import Command
-from ChatExchange.chatexchange.events import MessagePosted, MessageEdited
-from HTMLParser import HTMLParser
 
 # import SaveIO # For if you want to save and load objects for this module.
 # save_subdir = '<subdir_name>' # Define a save subdirectory for this Module, must be unique in the project. If this is not set, saves and loads will fail.
 # SaveIO.save(<object>, save_subdir, <filename>)  # Saves an object, filename does not need an extension.
 # SaveIO.load(save_subdir, <filename>)  # Loads and returns an object, filename does not need an extension.
 
-def nesting_deco(func, bot):
-    def check_nested(message):
-        content = func(message)
+def nesting_deco(get_output):
+    def check_nested(cmd_args, message, event):
+        content = cmd_args
         final_content = ""
         temp_content = ""
         open_brackets = 0
@@ -24,16 +22,23 @@ def nesting_deco(func, bot):
             elif content[i]=='}' and content[i+1]=='}':
                 i += 1
                 if open_brackets==1:
-                    temp_event =
-                    h = HTMLParser()
-                    temp_event.message
-                    final_content += bot.on_event()
-                open_brackets = max(0, open_brackets - 1, 0)
-        return final_content
+                    final_content += check_nested(temp_content)
+                    temp_content = ""
+                open_brackets -= 1
+                if open_brackets < 0:
+                    return "Your nesting brackets '{{' and '}}' don't match up"
+            elif open_brackets>0:
+                temp_content += content[i]
+            else:
+                final_content += content[i]
+        if open_brackets==0:
+            return get_output(final_content, message, event)
+        else:
+           return "Your nesting brackets '{{' and '}}' don't match up"
     return check_nested
 
 def on_bot_load(bot): # This will get called when the bot loads (after your module has been loaded in), use to perform additional setup for this module.
-    pass
+    bot.get_output = nesting_deco(bot.get_output)
 
 # def on_bot_stop(bot): # This will get called when the bot is stopping.
 #     pass
