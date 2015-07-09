@@ -15,6 +15,8 @@ def command_listcommands(cmd, bot, args, msg, event):
         return "Commands: %s" % (', '.join([command.name for command in bot.modules.list_commands()]))
     elif len(args) == 1:
         module = bot.modules.find_module_by_name(args[0])
+        if module is None:
+            return "That module does not exist, or it is disabled."
         cmds = module.list_commands()
         if len(cmds) == 0:
             return "No commands found in `%s`." % args[0]

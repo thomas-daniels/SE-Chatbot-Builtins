@@ -1,6 +1,5 @@
-from Module import Command, Module, MetaModule
-from Module import MalformedModuleException, ModuleDoesNotExistException
-import sys
+from Module import Command
+
 
 def module(cmd, bot, args, msg, event):
     if len(args) < 1:
@@ -18,25 +17,22 @@ def module_disable(cmd, bot, args, msg, event):
     if len(args) < 2:
         return "Not enough arguments."
     mod = args[1]
-    mod_obj = bot.modules.find_module_by_name(mod)
-    try:
-        del bot.modules[mod_obj]
+    success = bot.modules.disable_module(mod)
+    if success:
         return "Module disabled."
-    except AttributeError:
-        return "No such module."
+    else:
+        return "No such module, or it (or its container) has already been disabled."
+
 
 def module_enable(cmd, bot, args, msg, event):
     if len(args) < 2:
         return "Not enough arguments."
-    try:
-        metamod = MetaModule([args[1]], bot, 'temp')
-        bot.modules.modules.append(metamod.modules[0])
-    except MalformedModuleException or ModuleDoesNotExistException, e:
-        exc_type, exc_value, exc_trace = sys.exc_info()
-        print '[ModuleControls] ERROR: Module could not be loaded: details follow.'
-        print '               MESSAGE: ' + exc_value
-        print exc_trace
-        return "Module cannot be loaded - check the console for details."
+    mod = args[1]
+    success = bot.modules.enable_module(mod)
+    if success:
+        return "Module enabled."
+    else:
+        return "No such module, or its container is still disabled."
 
 
 
