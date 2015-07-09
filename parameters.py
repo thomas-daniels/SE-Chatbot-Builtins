@@ -9,7 +9,10 @@ def replace_deco(func, bot):
             "$GITHUB": bot.github
         }
         
-        regex = re.compile("(%s)" % "|".join(map(re.escape, replace_dict.keys())))        
+        regex = re.compile("(%s)" % "|".join(map(re.escape, replace_dict.keys())))
+        out = func(*args, **kwargs)
+        if out is None:
+            return None
         return regex.sub(lambda mo: replace_dict[mo.string[mo.start():mo.end()]], func(*args, **kwargs))
     return replace_paras
 
