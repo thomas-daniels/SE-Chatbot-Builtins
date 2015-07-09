@@ -136,8 +136,7 @@ def command_ban_deco(func):
 def ban_deco(func, bot):
     global banned_users
     def check_banned(event, client, *args, **kwargs):
-        if isinstance(event, MessagePosted) and bot.site in banned_users \
-                and event.user.id in banned_users[bot.site]:
+        if bot.site in banned_users and event.user.id in banned_users[bot.site]:
             return
         else:
             return func(event, client, *args, **kwargs)
