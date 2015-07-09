@@ -17,22 +17,31 @@ def nesting_deco(get_output):
 
         i = 0
         while i < len(content):
+            to_add = content[i]
             if content[i]=='{' and i < len(content) - 1 and content[i+1]=='{':
                 i += 1
+                if open_brackets == 0:
+                    to_add = ""
+                else:
+                    to_add += content[i]
                 open_brackets += 1
             elif content[i]=='}' and i < len(content) - 1 and content[i+1]=='}':
                 i += 1
                 if open_brackets==1:
+                    to_add = ""
                     final_content += check_nested(temp_content, message, event)
                     temp_content = ""
+                else:
+                    to_add += content[i]
                 open_brackets -= 1
                 if open_brackets < 0:
                     return "Your nesting brackets '{{' and '}}' don't match up"
-            elif open_brackets>0:
-                temp_content += content[i]
+            if open_brackets>0:
+                temp_content += to_add
             else:
-                final_content += content[i]
+                final_content += to_add
             i += 1
+
         if open_brackets==0:
             print final_content
             return get_output(final_content, message, event)
