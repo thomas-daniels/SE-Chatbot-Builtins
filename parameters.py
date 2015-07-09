@@ -13,7 +13,7 @@ def replace_deco(func, bot):
         out = func(*args, **kwargs)
         if out is None:
             return None
-        return regex.sub(lambda mo: replace_dict[mo.string[mo.start():mo.end()]], func(*args, **kwargs))
+        return regex.sub(lambda mo: replace_dict[mo.string[mo.start():mo.end()]], out)
     return replace_paras
 
 def on_bot_load(bot):
