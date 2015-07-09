@@ -3,6 +3,7 @@
 # Add necessary import to this file, including:
 # from Module import Command
 from ChatExchange.chatexchange.events import MessagePosted, MessageEdited
+from HTMLParser import HTMLParser
 
 # import SaveIO # For if you want to save and load objects for this module.
 # save_subdir = '<subdir_name>' # Define a save subdirectory for this Module, must be unique in the project. If this is not set, saves and loads will fail.
@@ -10,18 +11,25 @@ from ChatExchange.chatexchange.events import MessagePosted, MessageEdited
 # SaveIO.load(save_subdir, <filename>)  # Loads and returns an object, filename does not need an extension.
 
 def nesting_deco(func, bot):
-    def check_nested(event, client):
-        prefix = bot.prefix
-        if isinstance(event, MessagePosted) or isinstance(event, MessageEdited) and event.m:
+    def check_nested(message):
+        content = func(message)
+        final_content = ""
+        temp_content = ""
+        open_brackets = 0
 
-            message = ""
-            temp_message = ""
-
-            index = 0
-            while
-        else:
-            func(event, client)
-
+        for i in range(0,len(content)):
+            if content[i]=='{' and content[i+1]=='{':
+                i += 1
+                open_brackets += 1
+            elif content[i]=='}' and content[i+1]=='}':
+                i += 1
+                if open_brackets==1:
+                    temp_event =
+                    h = HTMLParser()
+                    temp_event.message
+                    final_content += bot.on_event()
+                open_brackets = max(0, open_brackets - 1, 0)
+        return final_content
     return check_nested
 
 def on_bot_load(bot): # This will get called when the bot loads (after your module has been loaded in), use to perform additional setup for this module.
