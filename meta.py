@@ -6,6 +6,7 @@ modules = [
     'admin',
     'didyoumean',
     'parameters',
-    'module_controls'
+    'module_controls',
+    'nesting'
 ]
 module_name = "builtins"
