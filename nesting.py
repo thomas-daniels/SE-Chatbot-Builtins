@@ -43,7 +43,6 @@ def nesting_deco(get_output):
             i += 1
 
         if open_brackets==0:
-            print final_content
             return get_output(final_content, message, event)
         else:
            return "Your nesting brackets '{{' and '}}' don't match up"
