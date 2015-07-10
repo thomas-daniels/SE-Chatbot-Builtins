@@ -7,25 +7,29 @@ import random
 import upsidedown
 
 
-eyes = ['°', '゜', 'ಥ', "'", '•', '^']
-mouths = ['□', 'Д', '益', 'ᴥ', '.']
+eyes = ['°', '゜', 'ಥ', "'", '•', '^', '⇀', 'ಠ', '๑']
+mouths = ['□', 'Д', '益', 'ᴥ', '.', 'ʖ', 'ل͜', '³', 'ਊ']
+arms = ['╯', 'ง', '┛', 'づ']
 
 def exec_flip(cmd, bot, args, msg, event): # cmd refers to the Command you assign this function to
     global eyes
     global mouths
     if len(args) == 0:
         return 'Not enough arguments'
-    eye = random.choice(eyes)
+    left_eye = random.choice(eyes)
+    right_eye = random.choice(eyes + [left_eye]*20)
     mouth = random.choice(mouths)
-    face = eye + mouth + eye
+    left_arm = random.choice(arms)
+    right_arm = random.choice(arms + [left_arm]*3)
+    face = left_eye + mouth + right_eye
 
     flipped = upsidedown.transform(' '.join(args))
 
-    return '(╯%s)╯︵%s' % (face, flipped)
+    return '('+left_arm+face+')'+right_arm+'︵'+flipped
 
 
 commands = [
-    Command( 'flip', exec_flip, 'This command will flip anything you throw at it. Syntax: `>>flip <something>`')
+    Command( 'flip', exec_flip, 'This command will flip anything you throw at it. Syntax: `$PREFIXflip something`')
     # Command( '<command name>', <command exec name>, '<help text>' (optional), <needs privilege> (= False), <owner only> (= False), <char check>(*) (= True), <special arg parsing method>(**) (= None) ),
     # ...
 ]
