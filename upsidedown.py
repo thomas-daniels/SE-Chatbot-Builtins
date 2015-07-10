@@ -45,11 +45,11 @@ import string
 
 # Define dual character. Make sure that mapping is bijective.
 FLIP_RANGES = [
-    (string.ascii_lowercase, "ɐqɔpǝɟƃɥᴉɾʞꞁɯuodbɹsʇnʌʍxʎz"),
+    (string.ascii_lowercase, "ɐqɔpǝɟƃɥᴉɾʞןɯuodbɹsʇnʌʍxʎz"),
     # alternatives: l:ʅ
-    (string.ascii_uppercase, "ⱯᗺƆᗡƎᖵ⅁HIᒋ⋊ꞀWNOԀꝹᴚS⊥∩ɅMX⅄Z"),
+    (string.ascii_uppercase, "∀ᗺƆ◖ƎℲ⅁HIſ⋊˥WNOԀΌᴚS⊥∩ɅMX⅄Z"),
     # alternatives: L:ᒣ⅂, J:ſ, F:߃Ⅎ, A:∀ᗄ, U:Ⴖ, W:Ϻ, C:ϽↃ, Q:Ό, M:Ɯꟽ
-    (string.digits, "0ІᘔƐᔭ59Ɫ86"),
+    (string.digits, "0ІᄅƐㄣ59Ɫ86"),
     (string.punctuation, "¡„#$%⅋,)(*+'-˙/:؛>=<¿@]\\[ᵥ‾`}|{~"),
     ]
 # See also http://www.fileformat.info/convert/text/upside-down-map.htm
