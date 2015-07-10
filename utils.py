@@ -24,6 +24,14 @@ def command_listcommands(cmd, bot, args, msg, event):
     else:
         return "0 or 1 argument(s) expected."
 
+def parse_cat_command(cmd):
+    if cmd.startswith("cat "):
+        return [cmd[4:]]
+    else:
+        return False
+
+def command_cat(cmd, bot, args, msg, event):
+    return args[0]
 
 def command_help(cmd, bot, args, msg, event):
     if len(args) == 0:
@@ -33,5 +41,6 @@ def command_help(cmd, bot, args, msg, event):
 commands = [Command('alive', command_alive, "A command to see whether the bot is there. Syntax: `$PREFIXalive`", False, False),
             Command('utc', command_utc, "Shows the current UTC time. Syntax: `$PREFIXutc`", False, False),
             Command('listcommands', command_listcommands, "Returns a list of all commands. Syntax: `$PREFIXlistcommands`", False, False, False),
-            Command('help', command_help, "Shows information about the chat bot, or about a specific command. Syntax: `$PREFIXhelp [ command ]`", False, False)]
+            Command('help', command_help, "Shows information about the chat bot, or about a specific command. Syntax: `$PREFIXhelp [ command ]`", False, False),
+            Command('cat', command_cat, "Repeats what you said back at you. Syntax: `$PREFIXcat something`", False, False, False, parse_cat_command)]
 module_name = "utils"

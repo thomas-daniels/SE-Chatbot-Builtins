@@ -1,5 +1,6 @@
 modules = [
     'utils',
+    'fun',
     'xkcd',
     'random_',
     'translate',
