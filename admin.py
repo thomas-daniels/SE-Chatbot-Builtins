@@ -143,6 +143,19 @@ def ban_deco(func, bot):
             return func(event, client, *args, **kwargs)
     return check_banned
 
+
+def on_event(event, client, bot):
+    if not isinstance(event, MessagePosted):
+        return
+    parts = event.message.content_source.split(" ")
+    if len(parts) == 2 and parts[1] == "!delete!" and parts[0].startswith(":"):
+        try:
+            if event.user.id in bot.privileged_user_ids or event.user.id in bot.owner_ids:
+                msg_id_to_delete = int(parts[0][1:])
+                client.get_message(msg_id_to_delete).delete()
+        except:
+            pass
+
 def on_bot_load(bot):
     global command_banned_users
     global banned_users
