@@ -37,5 +37,5 @@ def module_enable(cmd, bot, args, msg, event):
 
 
 commands = [
-    Command("module", module, "Contains controls for modules. Run `module help` for details.", True, False)
+    Command("module", module, "Contains controls for modules. Run `module help` for details.", False, True)
 ]
