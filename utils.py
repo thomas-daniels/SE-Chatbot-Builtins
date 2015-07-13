@@ -43,15 +43,15 @@ def command_read(cmd, bot, args, msg, event):
     if len(args)==0:
         return "No message id supplied."
     else:
-        message = ""
+        message = []
         for msg_id in args:
             try:
-                message += bot.client.get_message(int(msg_id)).content_source
+                message += [bot.client.get_message(int(msg_id)).content_source]
             except ValueError:
                 return msg_id + " is not a valid message id."
             except (LookupError, HTTPError) as e:
                 return msg_id + ": message not found."
-        return message
+        return ' '.join(message)
 
 commands = [Command('alive', command_alive, "A command to see whether the bot is there. Syntax: `$PREFIXalive`", False, False),
             Command('utc', command_utc, "Shows the current UTC time. Syntax: `$PREFIXutc`", False, False),
