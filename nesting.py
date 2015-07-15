@@ -29,7 +29,10 @@ def nesting_deco(get_output):
                 i += 1
                 if open_brackets==1:
                     to_add = ""
-                    final_content += check_nested(temp_content, message, event)
+                    cn = check_nested(temp_content, message, event)
+                    if cn is None:
+                        cn = "None"
+                    final_content += cn
                     temp_content = ""
                 else:
                     to_add += content[i]
