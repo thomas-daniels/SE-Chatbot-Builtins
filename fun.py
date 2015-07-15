@@ -29,7 +29,7 @@ def exec_flip(cmd, bot, args, msg, event): # cmd refers to the Command you assig
 
 
 commands = [
-    Command( 'flip', exec_flip, 'This command will flip anything you throw at it. Syntax: `$PREFIXflip something`')
+    Command( 'flip', exec_flip, 'This command will flip anything you throw at it. Syntax: `$PREFIXflip something`', False, False, False)
     # Command( '<command name>', <command exec name>, '<help text>' (optional), <needs privilege> (= False), <owner only> (= False), <char check>(*) (= True), <special arg parsing method>(**) (= None) ),
     # ...
 ]
