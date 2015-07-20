@@ -47,7 +47,7 @@ def command_ban(cmd, bot, args, msg, event):
     if len(args) > 1:
         command = args[1]
         if command not in command_banned_users:
-            command_banned_users[command] = [ ]
+            command_banned_users[command] = []
         if banned_user not in command_banned_users[command]:
             command_banned_users[command].append(banned_user)
             SaveIO.save(command_banned_users, save_subdir, 'command_banned_users')
@@ -81,7 +81,7 @@ def command_unban(cmd, bot, args, msg, event):
         command = args[1]
         if command in command_banned_users and banned_user in command_banned_users[command]:
             command_banned_users[command].remove(banned_user)
-            if len(command_banned_users[command])==0:
+            if len(command_banned_users[command]) == 0:
                 del command_banned_users[command]
             SaveIO.save(command_banned_users, save_subdir, 'command_banned_users')
             return "User @%s has been unbanned from using $PREFIX%s." % (user_name, command)
@@ -119,11 +119,13 @@ commands = [
     Command('delete', command_delete, "Only for privileged users. Deletes a message of the bot. Syntax: `$PREFIXdelete msg_id` or `<reply> !delete!`", True, True)
 ]
 
-command_banned_users = { }
-banned_users = { }
+command_banned_users = {}
+banned_users = {}
+
 
 def command_ban_deco(func):
     global command_banned_users
+
     def check_banned(cmd, msg, event, *args, **kwargs):
         cmd_args = cmd.split(' ')
         cmd_name = cmd_args[0].lower()
@@ -133,8 +135,10 @@ def command_ban_deco(func):
             return "You have been banned from using that command."
     return check_banned
 
+
 def ban_deco(func, bot):
     global banned_users
+
     def check_banned(event, client, *args, **kwargs):
         if hasattr(event, "user") and \
                 (bot.site in banned_users and event.user.id in banned_users[bot.site]):
@@ -155,6 +159,7 @@ def on_event(event, client, bot):
                 client.get_message(msg_id_to_delete).delete()
         except:
             pass
+
 
 def on_bot_load(bot):
     global command_banned_users

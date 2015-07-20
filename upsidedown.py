@@ -51,14 +51,14 @@ FLIP_RANGES = [
     # alternatives: L:ᒣ⅂, J:ſ, F:߃Ⅎ, A:∀ᗄ, U:Ⴖ, W:Ϻ, C:ϽↃ, Q:Ό, M:Ɯꟽ
     (string.digits, "0ІᄅƐㄣ59Ɫ86"),
     (string.punctuation, "¡„#$%⅋,)(*+'-˙/:؛>=<¿@]\\[ᵥ‾`}|{~"),
-    ]
+]
 # See also http://www.fileformat.info/convert/text/upside-down-map.htm
 
 # See:
 # http://de.wikipedia.org/wiki/Unicode-Block_Kombinierende_diakritische_Zeichen
 UNICODE_COMBINING_DIACRITICS = {'̈': '̤', '̊': '̥', '́': '̗', '̀': '̖',
-    '̇': '̣', '̃': '̰', '̄': '̱', '̂': '̬', '̆': '̯', '̌': '̭',
-    '̑': '̮', '̍': '̩'}
+                                '̇': '̣', '̃': '̰', '̄': '̱', '̂': '̬', '̆': '̯', '̌': '̭',
+                                '̑': '̮', '̍': '̩'}
 
 TRANSLITERATIONS = {'ß': 'ss'}
 
@@ -71,14 +71,15 @@ for chars, flipped in FLIP_RANGES:
 for char in _CHARLOOKUP.copy():
     # make 1:1 back transformation possible
     assert (_CHARLOOKUP[char] not in _CHARLOOKUP
-        or _CHARLOOKUP[_CHARLOOKUP[char]] == char), \
+            or _CHARLOOKUP[_CHARLOOKUP[char]] == char), \
         ("%s has ambiguous mapping" % _CHARLOOKUP[char])
     _CHARLOOKUP[_CHARLOOKUP[char]] = char
 
 # lookup for diacritical marks, reverse first
 _DIACRITICSLOOKUP = dict([(UNICODE_COMBINING_DIACRITICS[char], char)
-    for char in UNICODE_COMBINING_DIACRITICS])
+                          for char in UNICODE_COMBINING_DIACRITICS])
 _DIACRITICSLOOKUP.update(UNICODE_COMBINING_DIACRITICS)
+
 
 def transform(string, transliterations=None):
     """
@@ -113,11 +114,12 @@ def transform(string, transliterations=None):
                     charNormalised = charNormalised.replace(c, _CHARLOOKUP[c])
                 elif c in _DIACRITICSLOOKUP:
                     charNormalised = charNormalised.replace(c,
-                        _DIACRITICSLOOKUP[c])
+                                                            _DIACRITICSLOOKUP[c])
 
             output.append(unicodedata.normalize("NFC", charNormalised))
 
     return ''.join(output)
+
 
 def main():
     """Main method for running upsidedown.py from the command line."""

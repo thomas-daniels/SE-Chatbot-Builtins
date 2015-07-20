@@ -35,7 +35,6 @@ def module_enable(cmd, bot, args, msg, event):
         return "No such module, or its container is still disabled."
 
 
-
 commands = [
     Command("module", module, "Contains controls for modules. Run `module help` for details.", False, True)
 ]

@@ -3,7 +3,6 @@ import requests
 import random
 import os
 from Module import Command
-from Config import Config
 
 translation_languages = {}
 end_lang = None
