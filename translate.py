@@ -194,7 +194,7 @@ def on_bot_load(bot):
         yandex_api_key = f.read().strip()
     request_url = "https://translate.yandex.net/api/v1.5/tr.json/getLangs"
     params = {"key": yandex_api_key, "ui": "en"}
-    resp_json = requests.get(request_url, params).json()
+    resp_json = requests.get(request_url, params=params).json()
     translation_languages = resp_json["langs"]
 
 
