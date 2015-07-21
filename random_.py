@@ -1,6 +1,5 @@
 from Module import Command
 import random
-import sys
 
 
 def command_random(cmd, bot, args, msg, event):
@@ -9,7 +8,7 @@ def command_random(cmd, bot, args, msg, event):
 
 def command_randomint(cmd, bot, args, msg, event):
     if len(args) == 0:
-        return str(random.randint(0, sys.maxint))
+        return str(random.randint(0, 1e10))
     if len(args) == 1:
         try:
             max_ = int(args[0])
