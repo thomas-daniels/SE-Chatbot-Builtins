@@ -4,7 +4,7 @@
 from __future__ import unicode_literals
 from Module import Command
 import random
-import upsidedown
+from . import upsidedown
 
 
 eyes = ['°', '゜', 'ಥ', "'", '•', '^', '⇀', 'ಠ', '๑']
