@@ -59,10 +59,17 @@ def command_read(cmd, bot, args, msg, event):
                 return msg_id + ": message not found."
         return ' '.join(message)
 
+def command_ping(cmd, bot, args, msg, event):
+    if len(args) == 0:
+        return "No arguments supplied"
+    else:
+        return " ".join(["@" + arg for arg in args])
+
 commands = [Command('alive', command_alive, "A command to see whether the bot is there. Syntax: `$PREFIXalive`", False, False),
             Command('utc', command_utc, "Shows the current UTC time. Syntax: `$PREFIXutc`", False, False),
             Command('listcommands', command_listcommands, "Returns a list of all commands. Syntax: `$PREFIXlistcommands`", False, False, False),
             Command('help', command_help, "Shows information about the chat bot, or about a specific command. Syntax: `$PREFIXhelp [ command ]`", False, False),
             Command('cat', command_cat, "Repeats what you said back at you. Syntax: `$PREFIXcat something`", False, False, False, parse_cat_command),
-            Command('read', command_read, "Reads a post to you. Syntax: `$PREFIXread [ message_id ] ...`", False, False)]
+            Command('read', command_read, "Reads a post to you. Syntax: `$PREFIXread message_id [...]`", False, False),
+            Command('ping', command_ping, "Pings a list of users for you. Syntax: `$PREFIXping user [...]`", False, False)]
 module_name = "utils"
