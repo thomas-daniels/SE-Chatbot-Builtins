@@ -1,4 +1,4 @@
-import thread
+from threading import Thread
 import requests
 import random
 import os
@@ -43,7 +43,8 @@ def command_translationchain(cmd, bot, args, msg, event):
         if not args[1] in translation_languages or not args[2] in translation_languages:
             return "Language not supported."
         translation_chain_going_on = True
-        thread.start_new_thread(translationchain, (bot, args[3], args[1], args[2], translation_count))
+        t = Thread(target=translationchain, args=(bot, args[3], args[1], args[2], translation_count))
+        t.start()
         return "Translation chain started. Translation made by [Yandex Translate](https://translate.yandex.com). Some messages in the chain might not be posted due to a reason I don't know."
     else:
         return "There is already a translation chain going on."
@@ -71,7 +72,8 @@ def command_translationswitch(cmd, bot, args, msg, event):
     if not args[1] in translation_languages or not args[2] in translation_languages:
         return "Language not supported."
     translation_switch_going_on = True
-    thread.start_new_thread(translationswitch, (bot, args[3], args[1], args[2], translation_count))
+    t = Thread(target=translationswitch, args=(bot, args[3], args[1], args[2], translation_count))
+    t.start()
     return "Translation switch started. Translation made by [Yandex Translate](https://translate.yandex.com). Some messages in the switch might not be posted due to a reason I don't know."
 
 
@@ -192,7 +194,7 @@ def on_bot_load(bot):
         yandex_api_key = f.read().strip()
     request_url = "https://translate.yandex.net/api/v1.5/tr.json/getLangs"
     params = {"key": yandex_api_key, "ui": "en"}
-    resp_json = requests.get(request_url, params).json()
+    resp_json = requests.get(request_url, params=params).json()
     translation_languages = resp_json["langs"]
 
 

@@ -2,6 +2,7 @@ from Module import Command
 from datetime import datetime
 from requests import HTTPError
 import re
+from ChatExchange3.chatexchange3.messages import Message
 
 
 def command_alive(cmd, bot, args, msg, event):
@@ -51,7 +52,7 @@ def command_read(cmd, bot, args, msg, event):
         message = []
         for msg_id in args:
             try:
-                message += [re.sub(r'^:[0-9]+ ', '', bot.client.get_message(int(msg_id)).content_source)]
+                message += [re.sub(r'^:[0-9]+ ', '', Message(int(msg_id), bot.client).content_source)]
             except ValueError:
                 return msg_id + " is not a valid message id."
             except HTTPError:
