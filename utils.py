@@ -65,6 +65,9 @@ def command_getcurrentusers(cmd, bot, args, msg, event):
         users = bot.room.get_current_user_names()
     except HTTPError:
         return "HTTPError when executing the command; please try again."
+    if len(args) > 0 and args[0] == "pingformat":
+        users = [x.replace(" ", "") for x in users]
+        return " ".join(users)
     return ", ".join(users)
 
 
