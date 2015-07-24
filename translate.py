@@ -29,8 +29,6 @@ def command_translationchain(cmd, bot, args, msg, event):
     global translation_chain_going_on
     if yandex_api_key is None:
         return "Warning: no Yandex API Key found. Put one in `botdata/translate/yandex_api_key.txt`."
-    if event.user.id not in bot.owner_ids:
-        return "The `translationchain` command is a command that posts many messages and it does not post all messages, and causes that some messages that have to be posted after the chain might not be posted, so it is an owner-only command now."
     if len(args) < 4:
         return "Not enough arguments."
     try:
@@ -45,7 +43,7 @@ def command_translationchain(cmd, bot, args, msg, event):
         translation_chain_going_on = True
         t = Thread(target=translationchain, args=(bot, args[3], args[1], args[2], translation_count))
         t.start()
-        return "Translation chain started. Translation made by [Yandex Translate](https://translate.yandex.com). Some messages in the chain might not be posted due to a reason I don't know."
+        return "Translation chain started. Translation made by [Yandex Translate](https://translate.yandex.com)."
     else:
         return "There is already a translation chain going on."
 
@@ -55,8 +53,6 @@ def command_translationswitch(cmd, bot, args, msg, event):
     global translation_languages
     if yandex_api_key is None:
         return "Warning: no Yandex API Key found. Put one in `botdata/translate/yandex_api_key.txt`."
-    if event.user.id not in bot.owner_ids:
-        return "The `translationswitch` command is a command that posts many messages and it does not post all messages, and causes that some messages that have to be posted after the chain might not be posted, so it is an owner-only command now."
     if translation_switch_going_on:
         return "There is already a translation switch going on."
     if len(args) < 4:
@@ -74,7 +70,7 @@ def command_translationswitch(cmd, bot, args, msg, event):
     translation_switch_going_on = True
     t = Thread(target=translationswitch, args=(bot, args[3], args[1], args[2], translation_count))
     t.start()
-    return "Translation switch started. Translation made by [Yandex Translate](https://translate.yandex.com). Some messages in the switch might not be posted due to a reason I don't know."
+    return "Translation switch started. Translation made by [Yandex Translate](https://translate.yandex.com)."
 
 
 def command_translate(cmd, bot, args, msg, event):
