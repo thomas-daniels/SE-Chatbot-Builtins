@@ -80,10 +80,6 @@ def command_ping(cmd, bot, args, msg, event):
     else:
         return " ".join(["@" + arg for arg in args])
 
-
-def command_crash(cmd, bot, args, msg, event):
-    raise Exception("Crash testing!")
-
 commands = [Command('alive', command_alive, "A command to see whether the bot is there. Syntax: `$PREFIXalive`", False, False),
             Command('utc', command_utc, "Shows the current UTC time. Syntax: `$PREFIXutc`", False, False),
             Command('listcommands', command_listcommands, "Returns a list of all commands. Syntax: `$PREFIXlistcommands`", False, False, False),
@@ -91,6 +87,5 @@ commands = [Command('alive', command_alive, "A command to see whether the bot is
             Command('cat', command_cat, "Repeats what you said back at you. Syntax: `$PREFIXcat something`", False, False, False, parse_cat_command),
             Command('read', command_read, "Reads a post to you. Syntax: `$PREFIXread [ message_id ] ...`", False, False),
             Command('getcurrentusers', command_getcurrentusers, "Shows the current users of a room. Syntax: `$PREFIXgetcurrentusers`", False, False),
-            Command('ping', command_ping, "Pings a list of users for you. Syntax: `$PREFIXping user [...]`", False, False, False),
-            Command('crash', command_crash, "", False, True)]
+            Command('ping', command_ping, "Pings a list of users for you. Syntax: `$PREFIXping user [...]`", False, False, False)]
 module_name = "utils"
