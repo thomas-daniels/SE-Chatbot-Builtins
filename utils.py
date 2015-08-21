@@ -47,14 +47,20 @@ def command_cat(cmd, bot, args, msg, event):
 
 def command_read(cmd, bot, args, msg, event):
     if len(args) == 0:
-        return "No message id supplied."
+        return "No message id/link supplied."
     else:
         message = []
         for msg_id in args:
+            if msg_id.isdigit():
+                m_id = int(msg_id)
+            elif msg_id.split("#")[-1].isdigit():
+                m_id = int(msg_id.split("#")[-1])
+            elif msg_id.split("/")[-1].isdigit():
+                m_id = int(msg_id.split("/")[-1])
+            else:
+                return msg_id + " is not a valid message id/link."
             try:
-                message += [re.sub(r'^:[0-9]+ ', '', Message(int(msg_id), bot.client).content_source)]
-            except ValueError:
-                return msg_id + " is not a valid message id."
+                message += [re.sub(r'^:[0-9]+ ', '', Message(m_id, bot.client).content_source)]
             except HTTPError:
                 return msg_id + ": message not found."
         return ' '.join(message)
