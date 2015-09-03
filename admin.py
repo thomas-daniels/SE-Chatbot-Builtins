@@ -140,7 +140,7 @@ def ban_deco(func, bot):
     global banned_users
 
     def check_banned(event, client, *args, **kwargs):
-        if hasattr(event, "user") and \
+        if hasattr(event, "user") and event.user is not None and \
                 (bot.site in banned_users and event.user.id in banned_users[bot.site]):
             return
         else:
