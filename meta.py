@@ -8,6 +8,7 @@ modules = [
     'didyoumean',
     'parameters',
     'module_controls',
-    'nesting'
+    'nesting',
+    'define'
 ]
 module_name = "builtins"
