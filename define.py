@@ -34,7 +34,9 @@ def command_define(cmd, bot, args, msg, event):
             hindex = '1'
         output.append(u"{}. {}".format(hindex, fl))
         for dt in entry.iter('dt'):
-            output.append(u"- {}".format(dt.text[1:]))
+            definition = dt.text[1:].strip()
+            if definition != "":
+                output.append(u"- {}".format(definition))
     return os.linesep.join(output)
 
 
