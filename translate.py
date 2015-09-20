@@ -195,10 +195,10 @@ def on_bot_load(bot):
 
 
 commands = [
-    Command('detectlang', command_detectlang, "Detects the language of a piece of text using [Yandex Translate](https://translate.yandex.com/). Syntax: `$PREFIXdetectlang Input text here`", False, False, False, detectlang_arg_parsing),
-    Command('translate', command_translate, "Translates text using [Yandex Translate](https://translate.yandex.com/). Syntax: `$PREFIXtranslate input_lang output_lang Text to translate.`. `input_lang` and `output_lang` are language codes such as `en`, `fr` and `auto`.", False, False, False, trans_arg_parsing),
-    Command('translationchain', command_translationchain, "Owner-only command. Creates a chain of translations using [Yandex Translate](https://translate.yandex.com/). Syntax: `$PREFIXtranslationchain steps_number input_lang output_lang Text to translate.`", False, True, False, transcs_arg_parsing),
-    Command('translationswitch', command_translationswitch, "Owner-only command. Creates a chain of translations using [Yandex Translate](https://translate.yandex.com/), consisting of two languages. Syntax: `$PREFIXtranslationswitch steps_number lang1 lang2 Text to translate.`", False, True, False, transcs_arg_parsing)
+    Command('detectlang', command_detectlang, "Detects the language of a piece of text using [Yandex Translate](https://translate.yandex.com/). Syntax: `$PREFIXdetectlang Input text here`", False, False, detectlang_arg_parsing, None, None, None),
+    Command('translate', command_translate, "Translates text using [Yandex Translate](https://translate.yandex.com/). Syntax: `$PREFIXtranslate input_lang output_lang Text to translate.`. `input_lang` and `output_lang` are language codes such as `en`, `fr` and `auto`.", False, False, trans_arg_parsing, None, None, None),
+    Command('translationchain', command_translationchain, "Owner-only command. Creates a chain of translations using [Yandex Translate](https://translate.yandex.com/). Syntax: `$PREFIXtranslationchain steps_number input_lang output_lang Text to translate.`", False, True, transcs_arg_parsing, None, None, None),
+    Command('translationswitch', command_translationswitch, "Owner-only command. Creates a chain of translations using [Yandex Translate](https://translate.yandex.com/), consisting of two languages. Syntax: `$PREFIXtranslationswitch steps_number lang1 lang2 Text to translate.`", False, True, transcs_arg_parsing, None, None, None)
 ]
 module_name = "translate"
 save_subdir = "translate"

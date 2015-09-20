@@ -30,7 +30,7 @@ def exec_flip(cmd, bot, args, msg, event):
 
 
 commands = [
-    Command('flip', exec_flip, 'This command will flip anything you throw at it. Syntax: `$PREFIXflip something`', False, False, False)
+    Command('flip', exec_flip, 'This command will flip anything you throw at it. Syntax: `$PREFIXflip something`', False, False, None, None, None, None)
 ]
 
 module_name = "fun"

@@ -43,7 +43,7 @@ def nesting_deco(get_output):
 
 
 def on_bot_load(bot):
-    bot.get_output = nesting_deco(bot.get_output)
+    bot.command = nesting_deco(bot.command)
 
 
 commands = []

@@ -1,4 +1,5 @@
 from Module import Command
+import string
 
 
 def command_xkcdrandomnumber(cmd, bot, args, msg, event):
@@ -16,6 +17,6 @@ def command_xkcd(cmd, bot, args, msg, event):
 
 commands = [
     Command('xkcdrandomnumber', command_xkcdrandomnumber, "Returns a random number, based on an xkcd comic. Syntax: `$PREFIXxkcdrandomnumber`", False, False),
-    Command('xkcd', command_xkcd, "Shows the specified xkcd comic. Syntax: `$PREFIXxkcd comic_id`", False, False)
+    Command('xkcd', command_xkcd, "Shows the specified xkcd comic. Syntax: `$PREFIXxkcd comic_id`", False, False, None, None, string.digits, None)
 ]
 module_name = "xkcd"

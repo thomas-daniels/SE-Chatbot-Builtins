@@ -53,5 +53,5 @@ def on_bot_load(bot):
         api_key = ""
 
 commands = [
-    Command('define', command_define, 'Looks up a word in the Merriam-Webster dictionary API.', False, False, True, None, None)
+    Command('define', command_define, 'Looks up a word in the Merriam-Webster dictionary API.', False, False, None, None)
 ]
