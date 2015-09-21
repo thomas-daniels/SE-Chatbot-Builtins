@@ -5,6 +5,7 @@ import re
 import os
 from ChatExchange3.chatexchange3.messages import Message
 
+module_name = "utils"
 
 def command_alive(cmd, bot, args, msg, event):
     return "Yes, I'm alive."
@@ -39,7 +40,7 @@ def parse_cat_command(cmd):
 def command_help(cmd, bot, args, msg, event):
     if len(args) == 0:
         return "I'm $BOT_NAME, $OWNER_NAME's chatbot. You can find the source code [on GitHub]($GITHUB). You can get a list of all commands by running `$PREFIXlistcommands`, or you can run `$PREFIXhelp command` to learn more about a specific command."
-    return bot.modules.get_help(args[0]) or "The command you want to look up, does not exist."
+    return bot.modules.get_help(args[0]) or "The command you want to look up does not exist."
 
 
 def command_cat(cmd, bot, args, msg, event):
@@ -95,4 +96,3 @@ commands = [Command('alive', command_alive, "A command to see whether the bot is
             Command('read', command_read, "Reads a post to you. Syntax: `$PREFIXread [ message_id ] ...`", False, False),
             Command('getcurrentusers', command_getcurrentusers, "Shows the current users of a room. Syntax: `$PREFIXgetcurrentusers`", False, False),
             Command('ping', command_ping, "Pings a list of users for you. Syntax: `$PREFIXping user [...]`", False, False)]
-module_name = "utils"
