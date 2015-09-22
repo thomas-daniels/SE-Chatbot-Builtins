@@ -1,5 +1,6 @@
 from Module import Command
 
+module_name = "modulecontrols"
 
 def module(cmd, bot, args, msg, event):
     if len(args) < 1:
@@ -38,4 +39,3 @@ def module_enable(cmd, bot, args, msg, event):
 commands = [
     Command("module", module, "Contains controls for modules. Run `module help` for details.", False, True)
 ]
-module_name = "modulecontrols"

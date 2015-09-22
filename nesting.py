@@ -1,3 +1,5 @@
+module_name = "nesting"
+
 def nesting_deco(get_output):
     def check_nested(cmd_args, message, event):
         content = cmd_args
@@ -47,4 +49,3 @@ def on_bot_load(bot):
 
 
 commands = []
-module_name = "nesting"

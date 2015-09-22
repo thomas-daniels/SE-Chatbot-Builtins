@@ -9,7 +9,6 @@ module_name = 'define'
 
 api_key = ""
 
-
 def command_define(cmd, bot, args, msg, event):
     if len(args) != 1:
         return "1 argument expected"
@@ -43,13 +42,13 @@ def command_define(cmd, bot, args, msg, event):
 def on_bot_load(bot):
     global api_key
     if not os.path.isfile("botdata/define/dictionaryapi_key.txt"):
-        print("Warning: no Merriam-Webster API Key found for the translation module. Put one in botdata/define/dictionaryapi_key.txt")
+        print("[define] WARNING: No Merriam-Webster API Key found for the definition module. Put one in botdata/define/dictionaryapi_key.txt")
         return
     with open("botdata/define/dictionaryapi_key.txt") as f:
         api_key = f.read().strip()
     resp_text = requests.get("http://www.dictionaryapi.com/api/v1/references/sd4/xml/test?key=" + api_key).text
     if resp_text.startswith("Invalid"):
-        print("Warning: Merriam-Webster API Key is invalid.")
+        print("[define] WARNING: Merriam-Webster API Key is invalid.")
         api_key = ""
 
 commands = [

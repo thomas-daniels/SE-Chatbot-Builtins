@@ -4,6 +4,9 @@ import random
 import os
 from Module import Command
 
+module_name = "translate"
+save_subdir = "translate"
+
 translation_languages = {}
 end_lang = None
 translation_chain_going_on = False
@@ -184,7 +187,7 @@ def on_bot_load(bot):
     global translation_languages
     global yandex_api_key
     if not os.path.isfile("botdata/translate/yandex_api_key.txt"):
-        print("Warning: no Yandex API Key found for the translation module. Put one in botdata/translate/yandex_api_key.txt")
+        print("[translate] WARNING: no Yandex API Key found for the translation module. Put one in botdata/translate/yandex_api_key.txt")
         return
     with open("botdata/translate/yandex_api_key.txt") as f:
         yandex_api_key = f.read().strip()
@@ -200,5 +203,3 @@ commands = [
     Command('translationchain', command_translationchain, "Owner-only command. Creates a chain of translations using [Yandex Translate](https://translate.yandex.com/). Syntax: `$PREFIXtranslationchain steps_number input_lang output_lang Text to translate.`", False, True, transcs_arg_parsing, None, None, None),
     Command('translationswitch', command_translationswitch, "Owner-only command. Creates a chain of translations using [Yandex Translate](https://translate.yandex.com/), consisting of two languages. Syntax: `$PREFIXtranslationswitch steps_number lang1 lang2 Text to translate.`", False, True, transcs_arg_parsing, None, None, None)
 ]
-module_name = "translate"
-save_subdir = "translate"

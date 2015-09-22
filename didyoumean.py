@@ -1,5 +1,6 @@
 from __future__ import division
 
+module_name = "didyoumean"
 
 def unique_sorted(s):
     return ''.join(sorted(set(s)))
@@ -39,4 +40,3 @@ def on_bot_load(bot):
     bot.command = command_with_didyoumean
 
 commands = []
-module_name = "didyoumean"
