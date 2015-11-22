@@ -1,10 +1,12 @@
-from Module import Command
+﻿from Module import Command
 
 from bs4 import BeautifulSoup
 from urllib import request
 from datetime import datetime
 
 import string
+
+module_name = "xkcd"
 
 xkcd_comics = {
     "updated" : datetime(1900, 1, 1),
@@ -42,8 +44,13 @@ def command_xkcd(cmd, bot, args, msg, event):
 
         xkcd_comics["updated"] = datetime.today()
 
+    # Unfortunately we can't just return http://xkcd.com because the OneBox won't render it
+    if args[0] == "latest":
+        return "http://xkcd.com/{0}".format(xkcd_comics["comics"][0]["id"])
+
     results = []
     filter = " ".join(args[0:]).lower()
+
     for comic in xkcd_comics["comics"]:
         if comic["title"].lower().find(filter) > -1:
             results.append(comic)
@@ -57,7 +64,7 @@ def command_xkcd(cmd, bot, args, msg, event):
     if len(results) > 5:
         return "Too many matching comics, be more specific please!"
 
-    bot.room.send_message(":{0} More than one comic found; try `%%xkcd <#>` with one of these numbers:".format(event.message.id))
+    bot.room.send_message(":{0} More than one comic found; try `{1}xkcd <#>` with one of these numbers:".format(event.message.id, bot.prefix))
     for xkcd in results:
         bot.room.send_message("{0}: {1}".format(xkcd["id"], xkcd["title"]))
 
@@ -65,7 +72,6 @@ def command_xkcd(cmd, bot, args, msg, event):
 
 commands = [
     Command('xkcdrandomnumber', command_xkcdrandomnumber, "Returns a random number, based on an xkcd comic. Syntax: `$PREFIXxkcdrandomnumber`", False, False),
-    Command('xkcd', command_xkcd, "Shows the specified xkcd comic. Syntax: `$PREFIXxkcd <comic_id|search string>`", False, False)
+    Command('xkcd', command_xkcd, "Shows the specified xkcd comic. Syntax: `$PREFIXxkcd <id|title|'latest'>`", False, False)
 ]
-module_name = "xkcd"
-            
+
