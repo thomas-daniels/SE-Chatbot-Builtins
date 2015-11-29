@@ -1,4 +1,4 @@
-﻿from Module import Command
+from Module import Command
 import time
 import os
 import SaveIO
@@ -114,8 +114,8 @@ commands = [
     Command('stop', command_stop, "Owner-only command. Stops the bot. Syntax: `$PREFIXstop`", False, True),
     Command('disable', command_disable, "Owner-only command. Disables the bot. Syntax: `$PREFIXdisable`", False, True),
     Command('enable', command_enable, "Owner-only command. Enables the bot when it is disabled. Syntax: `$PREFIXenable`", False, True),
-    Command('ban', command_ban, "Owner-only command. Bans a user from using the bot. Syntax: `$PREFIXban user_id [command]`", True, True),
-    Command('unban', command_unban, "Owner-only command. Unbans a banned user. Syntax: `$PREFIXunban user_id` [command]", True, True),
+    Command('ban', command_ban, "Owner-only command. Bans a user from using the bot. Syntax: `$PREFIXban user_id [command]`", False, True),
+    Command('unban', command_unban, "Owner-only command. Unbans a banned user. Syntax: `$PREFIXunban user_id` [command]", False, True),
     Command('delete', command_delete, "Only for privileged users. Deletes a message of the bot. Syntax: `$PREFIXdelete msg_id` or `<reply> !delete!`", True, True)
 ]
 
