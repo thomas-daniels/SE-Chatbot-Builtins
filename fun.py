@@ -35,14 +35,12 @@ def exec_doubleflip(cmd, bot, args, msg, event):
     mirrored = ''.join(reversed(inp))
     mirrored_flipped = upsidedown.transform(mirrored)
     input_flipped = upsidedown.transform(inp)
-    
+
     left_eye = random.choice(eyes)
     right_eye = random.choice(eyes + [left_eye] * 20)
     mouth = random.choice(mouths)
-    left_arm = random.choice(arms)
-    right_arm = random.choice(arms + [left_arm] * 3)
     face = left_eye + mouth + right_eye
-    body = left_arm + '(' + face + ')' + right_arm
+    body = ' ︵ヽ(' + face + ')ﾉ︵ '
 
     return mirrored_flipped + ' ' + body + ' ' + input_flipped
 
