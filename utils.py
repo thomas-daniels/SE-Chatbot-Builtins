@@ -3,7 +3,7 @@ from datetime import datetime
 from requests import HTTPError
 import re
 import os
-from ChatExchange3.chatexchange3.messages import Message
+from ChatExchange6.chatexchange6.messages import Message
 
 
 def command_alive(cmd, bot, args, msg, event):
