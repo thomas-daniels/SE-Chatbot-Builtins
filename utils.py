@@ -16,15 +16,32 @@ def command_utc(cmd, bot, args, msg, event):
 
 def command_listcommands(cmd, bot, args, msg, event):
     if len(args) == 0:
-        return "Commands:%s%s" % (os.linesep, ', '.join([command.name for command in bot.modules.list_commands()]))
+        #return "Commands:%s%s" % (os.linesep, ', '.join([command.name for command in bot.modules.list_commands()]))
+        commands = []
+        for command in bot.modules.list_commands():
+            if command.privileged:
+                commands.append("+" + command.name)
+            elif command.owner_only:
+                commands.append("*" + command.name)
+            else:
+                commands.append(command.name)
+        return ", ".join(commands)
     elif len(args) == 1:
         module = bot.modules.find_module_by_name(args[0])
         if module is None:
             return "That module does not exist, or it is disabled."
         cmds = module.list_commands()
+        commands = []
         if len(cmds) == 0:
             return "No commands found in `%s`." % args[0]
-        return "Commands in `%s`:%s%s" % (args[0], os.linesep, ', '.join([command.name for command in cmds]))
+        for command in cmds():
+            if command.privileged:
+                commands.append("+" + command.name)
+            elif command.owner_only:
+                commands.append("*" + command.name)
+            else:
+                commands.append(command.name)
+        return ", ".join(commands)
     else:
         return "0 or 1 argument(s) expected."
 
