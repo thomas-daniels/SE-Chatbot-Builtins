@@ -10,7 +10,7 @@ def nesting_deco(get_output):
         i = 0
         while i < len(content):
             if content[i] == '\\' and i < len(content) - 2 and content[i + 1:i + 3] in ['{{', '}}']:
-                to_add = content[i + 1:i + 2]
+                to_add = content[i + 1:i + 3]
                 i += 2
             else:
                 to_add = content[i]
