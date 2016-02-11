@@ -102,7 +102,7 @@ commands = [Command('alive', command_alive, "A command to see whether the bot is
             Command('listcommands', command_listcommands, "Returns a list of all commands. Syntax: `$PREFIXlistcommands`", False, False),
             Command('help', command_help, "Shows information about the chat bot, or about a specific command. Syntax: `$PREFIXhelp [ command ]`", False, False),
             Command('cat', command_cat, "Repeats what you said back at you. Syntax: `$PREFIXcat something`", False, False, parse_cat_command, None, None, None),
-            Command('exec', command_exec, 'Executes the text supplie dto it as if it were a command. Syntax: `$PREFIXexec command`', False, False, parse_exec_command, None, None, None),
+            Command('exec', command_exec, 'Executes the text supplied to it as if it were a command. Syntax: `$PREFIXexec command`', False, False, parse_exec_command, None, None, None),
             Command('read', command_read, "Reads a post to you. Syntax: `$PREFIXread [ message_id ] ...`", False, False),
             Command('getcurrentusers', command_getcurrentusers, "Shows the current users of a room. Syntax: `$PREFIXgetcurrentusers`", False, False),
             Command('ping', command_ping, "Pings a list of users for you. Syntax: `$PREFIXping user [...]`", False, False, None, None, None, None)]
