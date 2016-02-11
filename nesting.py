@@ -9,28 +9,32 @@ def nesting_deco(get_output):
 
         i = 0
         while i < len(content):
-            to_add = content[i]
-            if content[i] == '{' and i < len(content) - 1 and content[i + 1] == '{':
-                i += 1
-                if open_brackets == 0:
-                    to_add = ""
-                else:
-                    to_add += content[i]
-                open_brackets += 1
-            elif content[i] == '}' and i < len(content) - 1 and content[i + 1] == '}':
-                i += 1
-                if open_brackets == 1:
-                    to_add = ""
-                    cn = check_nested(temp_content, message, event)
-                    if cn is None:
-                        cn = "None"
-                    final_content += cn
-                    temp_content = ""
-                else:
-                    to_add += content[i]
-                open_brackets -= 1
-                if open_brackets < 0:
-                    return "Your nesting brackets '{{' and '}}' don't match up"
+            if content[i] == '\\' and i < len(content) - 2 and content[i + 1:i + 3] in ['{{', '}}']:
+                to_add = content[i + 1:i + 2]
+                i += 2
+            else:
+                to_add = content[i]
+                if content[i] == '{' and i < len(content) - 1 and content[i + 1] == '{':
+                    i += 1
+                    if open_brackets == 0:
+                        to_add = ""
+                    else:
+                        to_add += content[i]
+                    open_brackets += 1
+                elif content[i] == '}' and i < len(content) - 1 and content[i + 1] == '}':
+                    i += 1
+                    if open_brackets == 1:
+                        to_add = ""
+                        cn = check_nested(temp_content, message, event)
+                        if cn is None:
+                            cn = "None"
+                        final_content += cn
+                        temp_content = ""
+                    else:
+                        to_add += content[i]
+                    open_brackets -= 1
+                    if open_brackets < 0:
+                        return "Your nesting brackets '{{' and '}}' don't match up"
             if open_brackets > 0:
                 temp_content += to_add
             else:
