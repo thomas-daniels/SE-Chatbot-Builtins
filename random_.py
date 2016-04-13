@@ -31,10 +31,20 @@ def command_randomint(cmd, bot, args, msg, event):
     return "Too many arguments."
 
 
+def parse_randomchoice_command(cmd):
+    if cmd.startswith("randomchoice "):
+        return [cmd[13:]]
+    else:
+        return False
+
+
 def command_randomchoice(cmd, bot, args, msg, event):
     if len(args) < 1:
         return "Not enough arguments."
-    return random.choice(args)
+    if "\n" in args or "\r" in args:
+        args.replace("\r\n", "\n").replace("\r", "\n")
+        return random.choice(args.split("\n"))
+    return random.choice(args.split(" "))
 
 
 def command_shuffle(cmd, bot, args, msg, event):
@@ -47,6 +57,6 @@ def command_shuffle(cmd, bot, args, msg, event):
 commands = [
     Command('random', command_random, "Returns a random floating-point number. Syntax: `$PREFIXrandom`", False, False),
     Command('randomint', command_randomint, "Returns a random integer. Syntax: `$PREFIXrandomint [ [ min ] max ]`", False, False),
-    Command('randomchoice', command_randomchoice, "Randomly chooses an item from a given list. Syntax: `$PREFIXrandomchoice listitem1 listitem2 listitem3 ...`", False, False, None, None, None, ""),
+    Command('randomchoice', command_randomchoice, "Randomly chooses an item from a given list. Syntax: `$PREFIXrandomchoice listitem1 listitem2 listitem3 ...`", False, False, parse_randomchoice_command, None, None, ""),
     Command('shuffle', command_shuffle, "Shuffles a list of given items. Syntax: `$PREFIXshuffle listitem1 listitem2 listitem3 ...`", False, False, None, None, None, "")
 ]
