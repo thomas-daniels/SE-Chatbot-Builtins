@@ -39,6 +39,7 @@ def parse_randomchoice_command(cmd):
 
 
 def command_randomchoice(cmd, bot, args, msg, event):
+    args = args[0]
     if len(args) < 1:
         return "Not enough arguments."
     if "\n" in args or "\r" in args:
