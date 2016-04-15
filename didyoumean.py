@@ -60,5 +60,5 @@ def on_bot_load(bot):
 
     bot.command = command_with_didyoumean
 
-commands = [Command('yes', command_yes, "Executes the suggested command after a 'Did you mean?' response", False, False, None, None),
-            Command('no', command_no, "Clears the command suggestion after a 'Did you mean?' response", False, False, None, None)]
+commands = [Command('yes', command_yes, "Executes the suggested command after a 'Did you mean?' response", False, False, None, ["y"]),
+            Command('no', command_no, "Clears the command suggestion after a 'Did you mean?' response", False, False, None, ["n"])]
