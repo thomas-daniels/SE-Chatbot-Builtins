@@ -28,7 +28,7 @@ def did_you_mean(given, cmd_name_list):
 
 def command_yes(cmd, bot, args, msg, event):
     if event.user.id in suggestions and suggestions[event.user.id] is not None:
-        return bot.command(cmd, suggestions[event.user.id], event)
+        return bot.command(suggestions[event.user.id], msg, event)
     else:
         return "There are no command suggestions for you (anymore)."
 
