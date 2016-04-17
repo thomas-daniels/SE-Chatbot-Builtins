@@ -112,7 +112,7 @@ def command_delete(cmd, bot, args, msg, event):
 
 
 def command_suspend(cmd, bot, args, msg, event):
-    if len(args) != 0:
+    if len(args) != 1:
         return "1 argument expected."
     suspend_time = args[0]
     if not suspend_time.isdigit():
