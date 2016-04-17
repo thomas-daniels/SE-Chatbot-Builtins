@@ -117,7 +117,7 @@ def command_suspend(cmd, bot, args, msg, event):
     suspend_time = args[0]
     if not suspend_time.isdigit():
         return "Invalid argument."
-    bot.suspend_until = int(suspend_time) + time.time()
+    bot.suspended_until = int(suspend_time) + time.time()
     return "Bot temporarily ({} seconds) disabled for non-owners. To clear the suspension manually, use the `unsuspend` command.".format(suspend_time)
 
 
