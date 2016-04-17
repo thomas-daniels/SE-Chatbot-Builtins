@@ -122,7 +122,7 @@ def command_suspend(cmd, bot, args, msg, event):
 
 
 def command_unsuspend(cmd, bot, args, msg, event):
-    bot.suspended_until = None
+    bot.suspended_until = -1
     return "Bot unsuspended."
 
 
