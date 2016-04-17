@@ -111,6 +111,21 @@ def command_delete(cmd, bot, args, msg, event):
         pass
 
 
+def command_suspend(cmd, bot, args, msg, event):
+    if len(args) != 0:
+        return "1 argument expected."
+    suspend_time = args[0]
+    if not suspend_time.isdigit():
+        return "Invalid argument."
+    bot.suspend_until = int(suspend_time) + time.time()
+    return "Bot temporarily ({} seconds) disabled for non-owners. To clear the suspension manually, use the `unsuspend` command.".format(suspend_time)
+
+
+def command_unsuspend(cmd, bot, args, msg, event):
+    bot.suspended_until = None
+    return "Bot unsuspended."
+
+
 def command_pull(cmd, bot, args, msg, event):
     os._exit(2)
 
@@ -118,6 +133,8 @@ commands = [
     Command('stop', command_stop, "Owner-only command. Stops the bot. Syntax: `$PREFIXstop`", False, True),
     Command('disable', command_disable, "Owner-only command. Disables the bot. Syntax: `$PREFIXdisable`", False, True),
     Command('enable', command_enable, "Owner-only command. Enables the bot when it is disabled. Syntax: `$PREFIXenable`", False, True),
+    Command('suspend', command_suspend, "Owner-only command. Temporarily disables the bot (for non-owners). Syntax: `$PREFIXsuspend time_in_seconds`", False, True),
+    Command('unsuspend', command_unsuspend, "Owner-only command. Manually unsuspends the bot when it has been suspended using `suspend`. Syntax: `$PREFIXunsuspend`", False, True),
     Command('ban', command_ban, "Owner-only command. Bans a user from using the bot. Syntax: `$PREFIXban user_id [command]`", False, True),
     Command('unban', command_unban, "Owner-only command. Unbans a banned user. Syntax: `$PREFIXunban user_id` [command]", False, True),
     Command('delete', command_delete, "Only for privileged users. Deletes a message of the bot. Syntax: `$PREFIXdelete msg_id` or `<reply> !delete!`", True, True),
