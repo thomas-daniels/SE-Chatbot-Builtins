@@ -2,7 +2,6 @@ from Module import Command
 from datetime import datetime
 from requests import HTTPError
 import re
-import os
 from ChatExchange6.chatexchange6.messages import Message
 
 
@@ -16,7 +15,6 @@ def command_utc(cmd, bot, args, msg, event):
 
 def command_listcommands(cmd, bot, args, msg, event):
     if len(args) == 0:
-        #return "Commands:%s%s" % (os.linesep, ', '.join([command.name for command in bot.modules.list_commands()]))
         commands = []
         for command in bot.modules.list_commands():
             if command.privileged:
@@ -25,7 +23,7 @@ def command_listcommands(cmd, bot, args, msg, event):
                 commands.append("*" + command.name)
             else:
                 commands.append(command.name)
-        return ", ".join(commands)
+        return "Commands:\r\n" + ", ".join(commands)
     elif len(args) == 1:
         module = bot.modules.find_module_by_name(args[0])
         if module is None:
@@ -34,7 +32,7 @@ def command_listcommands(cmd, bot, args, msg, event):
         commands = []
         if len(cmds) == 0:
             return "No commands found in `%s`." % args[0]
-        for command in cmds():
+        for command in cmds:
             if command.privileged:
                 commands.append("+" + command.name)
             elif command.owner_only:
