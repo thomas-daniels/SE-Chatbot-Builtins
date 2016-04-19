@@ -52,7 +52,11 @@ def on_bot_load(bot):
                 suggestions[event.user.id] = None
                 return "Command not found."
             else:
-                suggestions[event.user.id] = dym + " " + " ".join(cmd.split(" ")[1:])
+                spl = cmd.split(" ")
+                if len(spl) > 1:
+                    suggestions[event.user.id] = dym + " " + " ".join(cmd.split(" ")[1:])
+                else:
+                    suggestions[event.user.id] = dym
                 return "Command not found. Did you mean: `%s`?" % dym
         else:
             suggestions[event.user.id] = None
