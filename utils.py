@@ -41,7 +41,7 @@ def command_listcommands(cmd, bot, args, msg, event):
                 commands.append("*" + command.name)
             else:
                 commands.append(command.name)
-        return ", ".join(commands)
+        return "Commands:\r\n" + ", ".join(commands)
     else:
         return "0 or 1 argument(s) expected."
 
