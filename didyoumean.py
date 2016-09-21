@@ -53,7 +53,7 @@ def on_bot_load(bot):
                 return "Command not found."
             else:
                 spl = cmd.split(" ")
-                if spl[0] == 'yes':
+                if dym == 'yes':
                     pass
                 elif len(spl) > 1:
                     suggestions[event.user.id] = dym + " " + " ".join(cmd.split(" ")[1:])
