@@ -70,7 +70,7 @@ def parse_exec_command(cmd):
         return False
     
 def command_exec(cmd, bot, args, msg, event):
-    return bot.command(args[0], msg, event)
+    return bot.command(args[0], msg, event, -1)
 
     
 def command_read(cmd, bot, args, msg, event):

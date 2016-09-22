@@ -1,7 +1,7 @@
 module_name = "nesting"
 
 def nesting_deco(get_output):
-    def check_nested(cmd_args, message, event):
+    def check_nested(cmd_args, message, event, start):
         content = cmd_args
         final_content = ""
         temp_content = ""
@@ -25,7 +25,7 @@ def nesting_deco(get_output):
                     i += 1
                     if open_brackets == 1:
                         to_add = ""
-                        cn = check_nested(temp_content, message, event)
+                        cn = check_nested(temp_content, message, event, -1 if start == -1 else message.content_source.find('{{', beg=start))
                         if cn is None:
                             cn = "None"
                         final_content += cn
@@ -42,7 +42,7 @@ def nesting_deco(get_output):
             i += 1
 
         if open_brackets == 0:
-            return get_output(final_content, message, event)
+            return get_output(final_content, message, event, start)
         else:
             return "Your nesting brackets '{{' and '}}' don't match up"
     return check_nested
