@@ -2,7 +2,6 @@ from Module import Command
 from datetime import datetime
 from requests import HTTPError
 import re
-import os
 from ChatExchange6.chatexchange6.messages import Message
 
 
@@ -16,7 +15,6 @@ def command_utc(cmd, bot, args, msg, event):
 
 def command_listcommands(cmd, bot, args, msg, event):
     if len(args) == 0:
-        #return "Commands:%s%s" % (os.linesep, ', '.join([command.name for command in bot.modules.list_commands()]))
         commands = []
         for command in bot.modules.list_commands():
             if command.privileged:
@@ -25,7 +23,7 @@ def command_listcommands(cmd, bot, args, msg, event):
                 commands.append("*" + command.name)
             else:
                 commands.append(command.name)
-        return ", ".join(commands)
+        return "Commands:\r\n" + ", ".join(commands)
     elif len(args) == 1:
         module = bot.modules.find_module_by_name(args[0])
         if module is None:
@@ -34,14 +32,14 @@ def command_listcommands(cmd, bot, args, msg, event):
         commands = []
         if len(cmds) == 0:
             return "No commands found in `%s`." % args[0]
-        for command in cmds():
+        for command in cmds:
             if command.privileged:
                 commands.append("+" + command.name)
             elif command.owner_only:
                 commands.append("*" + command.name)
             else:
                 commands.append(command.name)
-        return ", ".join(commands)
+        return "Commands:\r\n" + ", ".join(commands)
     else:
         return "0 or 1 argument(s) expected."
 
@@ -120,7 +118,7 @@ commands = [Command('alive', command_alive, "A command to see whether the bot is
             Command('help', command_help, "Shows information about the chat bot, or about a specific command. Syntax: `$PREFIXhelp [ command ]`", False, False),
             Command('cat', command_cat, "Repeats what you said back at you. Syntax: `$PREFIXcat something`", False, False, parse_cat_command, None, None, None),
             Command('exec', command_exec, 'Executes the text supplied to it as if it were a command. Syntax: `$PREFIXexec command`', False, False, parse_exec_command, None, None, None),
-            Command('read', command_read, "Reads a post to you. Syntax: `$PREFIXread [ message_id ] ...`", False, False),
+            Command('read', command_read, "Reads a chat message to you. Syntax: `$PREFIXread [ message_id ] ...`", False, False),
             Command('getcurrentusers', command_getcurrentusers, "Shows the current users of a room. Syntax: `$PREFIXgetcurrentusers`", False, False),
             Command('ping', command_ping, "Pings a list of users for you. Syntax: `$PREFIXping user [...]`", False, False, None, None, None, None)]
 module_name = "utils"
