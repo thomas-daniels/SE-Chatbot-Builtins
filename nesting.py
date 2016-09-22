@@ -25,9 +25,9 @@ def nesting_deco(get_output):
                     i += 1
                     if open_brackets == 1:
                         to_add = ""
-                        cn = check_nested(temp_content, message, event, -1 if start == -1 else message.content_source.find('{{', beg=start))
-                        if cn is None:
-                            cn = "None"
+                        cn = check_nested(temp_content, message, event, -1 if start == -1 else message.content_source.find('{{', start))
+                        if cn is None or cn is False:
+                            return None
                         final_content += cn
                         temp_content = ""
                     else:

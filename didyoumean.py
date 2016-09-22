@@ -1,5 +1,6 @@
 from __future__ import division
 from Module import Command
+import copy
 
 module_name = "didyoumean"
 suggestions = {}
@@ -28,7 +29,8 @@ def did_you_mean(given, cmd_name_list):
 
 def command_yes(cmd, bot, args, msg, event):
     if event.user.id in suggestions and suggestions[event.user.id] is not None:
-        return bot.command(suggestions[event.user.id], msg, event)
+        bot.on_event(suggestions[event.user.id], None)
+        return None
     else:
         return "There are no command suggestions for you (anymore)."
 
@@ -44,24 +46,33 @@ def command_no(cmd, bot, args, msg, event):
 def on_bot_load(bot):
     orig_method = bot.command
 
-    def command_with_didyoumean(cmd, msg, event):
-        result = orig_method(cmd, msg, event)
+    def command_with_didyoumean(cmd, msg, event, start):
+        result = orig_method(cmd, msg, event, start)
         if result == "Command not found.":
-            dym = did_you_mean(cmd.split(' ')[0].lower(), [command.name for command in bot.modules.list_commands()])
+            orig = cmd.split(' ')[0].lower()
+            dym = did_you_mean(orig, [command.name for command in bot.modules.list_commands()])
             if dym is None:
                 suggestions[event.user.id] = None
-                return "Command not found."
+                msg.reply("Command not found.")
+                return None                
             else:
                 spl = cmd.split(" ")
                 if dym == 'yes':
                     pass
-                elif len(spl) > 1:
-                    suggestions[event.user.id] = dym + " " + " ".join(cmd.split(" ")[1:])
                 else:
-                    suggestions[event.user.id] = dym
-                return "Command not found. Did you mean: `%s`?" % dym
+                    event_copy = copy.copy(event)
+                    content_source = event_copy.message.content_source
+                    index = content_source.find(orig, start)
+                    if index == -1:
+                        msg.reply("Command not found.")
+                        return None
+                    event_copy.message = copy.copy(event_copy.message)
+                    event_copy.message.content_source = content_source[:index] + dym + content_source[index + len(orig):]
+                    suggestions[event.user.id] = event_copy
+                msg.reply("Command not found. Did you mean: `%s`?" % dym)
+                return None
         else:
-            suggestions[event.user.id] = None
+            # suggestions[event.user.id] = None
             return result
 
     bot.command = command_with_didyoumean
