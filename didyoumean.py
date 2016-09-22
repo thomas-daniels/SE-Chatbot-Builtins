@@ -72,7 +72,8 @@ def on_bot_load(bot):
                 msg.reply("Command not found. Did you mean: `%s`?" % dym)
                 return None
         else:
-            # suggestions[event.user.id] = None
+            if start == 0 and result is not None and result is not False:
+                suggestions[event.user.id] = None
             return result
 
     bot.command = command_with_didyoumean
