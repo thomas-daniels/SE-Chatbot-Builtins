@@ -2,8 +2,8 @@ from Module import Command
 import time
 import os
 import SaveIO
-from ChatExchange6.chatexchange6.messages import Message
-from ChatExchange6.chatexchange6.events import MessagePosted
+from ChatExchange.chatexchange.messages import Message
+from ChatExchange.chatexchange.events import MessagePosted
 
 save_subdir = 'admin'
 module_name = "admin"
