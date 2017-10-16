@@ -180,7 +180,7 @@ def on_event(event, client, bot):
                 msg_id_to_delete = int(parts[0][1:])
                 client.get_message(msg_id_to_delete).delete()
         except:
-            pass
+            event.message.reply("You don't have the permission to execute this command.")
 
 
 def on_bot_load(bot):
