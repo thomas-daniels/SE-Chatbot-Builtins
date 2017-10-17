@@ -179,8 +179,10 @@ def on_event(event, client, bot):
             if event.user.id in bot.privileged_user_ids or event.user.id in bot.owner_ids:
                 msg_id_to_delete = int(parts[0][1:])
                 client.get_message(msg_id_to_delete).delete()
+            else:
+                event.message.reply("You don't have the permission to execute this command.")
         except:
-            event.message.reply("You don't have the permission to execute this command.")
+            pass
 
 
 def on_bot_load(bot):
