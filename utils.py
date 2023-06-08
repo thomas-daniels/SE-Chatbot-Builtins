@@ -112,6 +112,12 @@ def command_ping(cmd, bot, args, msg, event):
     else:
         return " ".join(["@" + arg for arg in args])
 
+def command_rmspaces(cmd, bot, args, msg, event):
+    if len(args) == 0:
+        return "No arguments supplied"
+    else:
+        return "".join([arg.replace(" ", "") for arg in args])
+
 commands = [Command('alive', command_alive, "A command to see whether the bot is there. Syntax: `$PREFIXalive`", False, False),
             Command('utc', command_utc, "Shows the current UTC time. Syntax: `$PREFIXutc`", False, False),
             Command('listcommands', command_listcommands, "Returns a list of all commands. Syntax: `$PREFIXlistcommands`", False, False),
@@ -120,5 +126,6 @@ commands = [Command('alive', command_alive, "A command to see whether the bot is
             Command('exec', command_exec, 'Executes the text supplied to it as if it were a command. Syntax: `$PREFIXexec command`', False, False, parse_exec_command, None, None, None),
             Command('read', command_read, "Reads a chat message to you. Syntax: `$PREFIXread [ message_id ] ...`", False, False),
             Command('getcurrentusers', command_getcurrentusers, "Shows the current users of a room. Syntax: `$PREFIXgetcurrentusers`", False, False),
-            Command('ping', command_ping, "Pings a list of users for you. Syntax: `$PREFIXping user [...]`", False, False, None, None, None, None)]
+            Command('ping', command_ping, "Pings a list of users for you. Syntax: `$PREFIXping user [...]`", False, False, None, None, None, None),
+            Command('rmspaces', command_rmspaces, "Removes all spaces in string. Syntax: `$PREFIXrmspaces something for test`", False, False, None, None, None, None)]
 module_name = "utils"
